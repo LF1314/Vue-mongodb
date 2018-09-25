@@ -34,8 +34,10 @@ const xhr = {
   },
   delete(url, data, config) {
     return this.get(url, data, 'delete', config)
+  },
+  put(url, data, config) {
+    return this.post(url, data, 'put', config)
   }
-
 
 }
 

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var admindata = require('../model/model')
-
+var imgdata = require('../model/imgs')
 //管理员登陆控制
 router.get('/login', (req, res) => {
     let {
@@ -78,6 +78,32 @@ router.delete('/deladmin/:id', (req, res) => {
         res.json({
             code: 401,
             err
+        })
+    })
+})
+
+
+//添加图片
+router.post('/imgs', (req, res) => {
+    imgdata.create({
+        imgs: req.body
+    }).then(data => {
+        res.json({
+            code: 200,
+            msg: '添加图片入库成功',
+
+        })
+    })
+})
+//获取所有的图片
+router.get('/imgs', (req, res) => {
+    let pn = req.query.pn
+    imgdata.find().limit(10).skip((pn - 1) * 10).then(data => {
+        res.json({
+            code: 200,
+            msg: '查询成功',
+            data,
+            count: 219
         })
     })
 })

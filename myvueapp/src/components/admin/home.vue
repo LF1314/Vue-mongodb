@@ -14,8 +14,8 @@
                 <el-menu-item index="studentlist">学生列表</el-menu-item>
                 <el-menu-item index="addstudent">添加学生</el-menu-item>
                 <el-submenu index="2-4">
-                <template slot="title">选项4</template>
-                <el-menu-item index="2-4-1">选项1</el-menu-item>
+                <template slot="title">图片分类</template>
+                <el-menu-item index="beau">beautifulgirl</el-menu-item>
                 <el-menu-item index="2-4-2">选项2</el-menu-item>
                 <el-menu-item index="2-4-3">选项3</el-menu-item>
                 </el-submenu>

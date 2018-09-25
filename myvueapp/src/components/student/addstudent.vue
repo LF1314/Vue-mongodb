@@ -32,7 +32,7 @@
             <div class="Achievementinformation">
               <h4 class="itemh4">成绩信息</h4>
               <el-form :model = 'studentdata.cursor' label-width="100px">
-                   <el-form-item label="Chinese" >
+                   <el-form-item label="Chineses" >
                        <el-input v-model="studentdata.cursor.Chinses"></el-input>
                     </el-form-item> 
                     <el-form-item label="math" >
@@ -42,9 +42,13 @@
                        <el-input v-model="studentdata.cursor.English"></el-input>
                     </el-form-item> 
               </el-form>
-              <el-button @click="addstudent" class="btn" style="primary">
+              <el-button @click="addstudent" class="btn" type="primary" v-if="isshow">
                   添加
               </el-button>
+              <el-button @click="editstudent" class="btn" type="primary" v-else>
+                  修改
+              </el-button>
+              
             </div>
         </div>
     </div>
@@ -55,6 +59,8 @@ export default {
   name: "addstudent",
   data() {
     return {
+      isshow: true,
+      studentid: "",
       studentdata: {
         学号: 0,
         name: "",
@@ -70,6 +76,7 @@ export default {
     };
   },
   methods: {
+    //添加学生
     addstudent() {
       console.log(this.studentdata);
       this.$axios.post("/students/addstudent", this.studentdata).then(res => {
@@ -78,6 +85,50 @@ export default {
           this.$router.push("studentlist");
         }
       });
+    },
+    //修改学生信息
+    editstudent() {
+      this.$axios
+        .put(`/students/changestudent/${this.studentid}`, this.studentdata)
+        .then(res => {
+          console.log(res.data.code);
+          if (res.data.code == 200) {
+            this.$message.success({ message: res.data.msg });
+            this.$router.push("studentlist");
+          } else {
+            this.$message.error("修改失败");
+          }
+        });
+    }
+  },
+  created() {
+    this.studentid = this.$route.query.id;
+    if (this.studentid) {
+      this.isshow = false;
+      this.$axios.get(`/students/student/${this.studentid}`).then(res => {
+        console.log(res.data);
+        this.studentdata = res.data.data;
+      });
+    }
+  },
+  watch: {
+    $route(val, oldval) {
+      // console.log(val);
+      if (val.name == "addstudent") {
+        this.studentdata = {
+          学号: 0,
+          name: "",
+          sex: "",
+          age: 0,
+          学院: "",
+          cursor: {
+            math: 0,
+            English: 0,
+            Chinses: 0
+          }
+        };
+        this.isshow = true;
+      }
     }
   }
 };

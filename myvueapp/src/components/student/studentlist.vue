@@ -43,12 +43,16 @@
             <template slot-scope="scope">
                     <el-button
                     type="text"
-                    size="small">
+                    size="small"
+                    @click="removestudent(scope.row._id)"
+                    >
                     移除
                     </el-button>
                     <el-button
                     type="text"
-                    size="small">
+                    size="small"
+                    @click="editstudent(scope.row._id)"
+                    >
                     编辑
                     </el-button>
                     <el-button
@@ -79,6 +83,36 @@ export default {
         console.log(res);
         this.studentsdatas = res.data.stus;
       });
+    },
+    editstudent(id) {
+      this.$router.push({ path: "editstudent", query: { id: id } });
+    },
+    removestudent(id) {
+      this.$confirm("此操作将永久删除该学生, 是否继续?", "提示", {
+        confirmButtonText: "确定",
+        cancelButtonText: "取消",
+        type: "warning",
+        center: true
+      })
+        .then(() => {
+          this.$axios.delete(`/students/delstudent/${id}`).then(res => {
+            if (res.data.code == 200) {
+              this.$message({
+                type: "success",
+                message: res.data.msg
+              });
+              this.getstudents();
+            } else {
+              this.$message.error(res.data.msg);
+            }
+          });
+        })
+        .catch(() => {
+          this.$message({
+            type: "info",
+            message: "已取消删除"
+          });
+        });
     }
   },
   created() {

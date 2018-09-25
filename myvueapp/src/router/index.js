@@ -55,8 +55,28 @@ export default new Router({
           name: 'addstudent',
           component: () =>
             import('@/components/student/addstudent')
+        },
+        //编辑学生信息
+        , {
+          path: 'editstudent',
+          name: 'editstudent',
+          component: () =>
+            import('@/components/student/addstudent')
+        },
+        {
+          path: 'beau',
+          name: "beau",
+          component: () =>
+            import('@/components/img/beautiful')
         }
+
       ]
+    },
+    {
+      path: '/test',
+      name: 'test',
+      component: () =>
+        import('../../test/test.vue')
     }
 
   ]

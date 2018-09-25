@@ -3,11 +3,14 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+//引入mongo数据库管理
 var mongoose = require('mongoose')
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var adminRouter = require('./routes/admin');
-var students = require('./routes/student')
+var students = require('./routes/student');
+var img = require('./routes/img')
+//引入二级路由管理api
 var app = express();
 //用来连接上数据库系统start
 mongoose.connect('mongodb://localhost/student')
@@ -33,6 +36,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter);
 app.use('/admin/students', students)
+app.use('/admin/img', img)
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
   next(createError(404));

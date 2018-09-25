@@ -2,7 +2,7 @@
     <div class="imgswraper">
         <div>
             <h2>
-                图片中心
+                女神屋
             </h2>
         </div>
         <div class="imglist">
@@ -36,7 +36,7 @@
 </template>
 <script>
 export default {
-  name: "usercenter",
+  name: "beautiful",
   data() {
     return {
       imgdata: []
@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     getimgs() {
-      this.$axios.get("/imgs", { pn: 2 }).then(res => {
+      this.$axios.get("/img/imgs").then(res => {
         this.imgdata = res.data.data;
         console.log(this.imgdata);
       });
