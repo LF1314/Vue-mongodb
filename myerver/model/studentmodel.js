@@ -21,6 +21,8 @@ var student = new mongoose.Schema({
     }
 
 
+}, {
+    versionKey: false
 })
 
 let studendata = mongoose.model('students', student, 'students')

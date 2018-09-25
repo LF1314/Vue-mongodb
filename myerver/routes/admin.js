@@ -103,7 +103,7 @@ router.get('/imgs', (req, res) => {
             code: 200,
             msg: '查询成功',
             data,
-            count: 219
+            count: data.length
         })
     })
 })

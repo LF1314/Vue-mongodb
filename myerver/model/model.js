@@ -16,6 +16,8 @@ var adminmodel = new mongoose.Schema({
     desc: {
         type: 'string'
     }
+}, {
+    versionKey: false
 })
 
 let admindata = mongoose.model('admin', adminmodel, 'admin')

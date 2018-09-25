@@ -19,14 +19,26 @@ router.post('/imgs', (req, res) => {
 router.get('/imgs', (req, res) => {
     if (req.query) {
         let pn = req.query.pn
-    }
-    imggirldata.find().then(data => {
-        res.json({
-            code: 200,
-            msg: '查询成功',
-            data
+        imggirldata.find().limit(5).skip((pn - 1) * 5).then(data => {
+            res.json({
+                code: 200,
+                msg: '查询成功',
+                data,
+                count: 200
+            })
         })
-    })
+    } else {
+        imggirldata.find().limit(50).then(data => {
+            res.json({
+                code: 200,
+                msg: '查询成功',
+                data,
+                count: 200
+            })
+        })
+
+    }
+
 })
 
 
